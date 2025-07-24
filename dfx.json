@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "health_cannister_backend": {
+      "candid": "src/health_cannister_backend/health_cannister_backend.did",
+      "package": "health_cannister_backend",
+      "type": "rust"
+    },
+    "health_cannister_frontend": {
+      "dependencies": [
+        "health_cannister_backend"
+      ],
+      "source": [
+        "src/health_cannister_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "health_cannister_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

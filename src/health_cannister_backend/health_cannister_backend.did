@@ -1,4 +1,6 @@
 // backend.did
+type ApiResponse = variant { Ok : text; Err : text };
+
 type Hospital = record {
   id: text;
   hospital_name: text;
@@ -102,7 +104,7 @@ service : {
   register_hospital: (Hospital) -> (text);
   get_hospitals: () -> (vec Hospital);
   
-  register_patient_account: (PatientAccount) -> (text);
+  register_patient_account: (PatientAccount) -> (ApiResponse);
   get_patient_accounts: () -> (vec PatientAccount);
 
   add_patient: (Patient) -> (text);

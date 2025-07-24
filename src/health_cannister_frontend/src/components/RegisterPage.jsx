@@ -137,35 +137,62 @@ function RegisterPage() {
 
 
     // Assume this state is set somewhere
+const handleSubmit = async (event) => {
+    event.preventDefault(); // 🔥 prevents the default form reload behavior
 
-    const handleSubmit = async (event) => {
-          event.preventDefault(); // 🔥 prevents the default form reload behavior
+    console.log("Starting registration process");
+    setLoading(true); // Assuming you have loading state
+    setError(""); // Clear any previous errors
 
-        console.log("hi first")
-        try {
-            const authClient = await AuthClient.create()
-            await authClient.login({
-                identityProvider:
-                    import.meta.env.VITE_DFX_NETWORK === "ic"
-                        ? "https://identity.ic0.app"
-                        : `http://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`,
-                derivationOrigin: window.location.origin,
-                onCancel: () => {
-                    console.log("Login cancelled")
-                    setError("Login cancelled.")
-                    setLoading(false)
-                },
-                onSuccess: async () => {
-                    console.log("hi")
-                    const identity = authClient.getIdentity()
-                    const principal = identity.getPrincipal().toText()
-                    console.log(principal);
-                    const backend = createBackendActor(import.meta.env.VITE_CANISTER_ID_HEALTH_CANNISTER_BACKEND, {
-                        agentOptions: { identity },
-                    });
+    try {
+        const authClient = await AuthClient.create()
+        await authClient.login({
+            identityProvider:
+                import.meta.env.VITE_DFX_NETWORK === "ic"
+                    ? "https://identity.ic0.app"
+                    : `http://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`,
+            derivationOrigin: window.location.origin,
+            onCancel: () => {
+                console.log("Login cancelled")
+                setError("Login cancelled.")
+                setLoading(false)
+            },
+            onSuccess: async () => {
+                console.log("Authentication successful, proceeding with registration");
+                const identity = authClient.getIdentity()
+                const principal = identity.getPrincipal().toText()
+                console.log("Principal:", principal);
+                
+                const backend = createBackendActor(import.meta.env.VITE_CANISTER_ID_HEALTH_CANNISTER_BACKEND, {
+                    agentOptions: { identity },
+                });
 
+                try {
                     if (userType === "patient") {
-                        await backend.register_patient_account({
+                        // Validate patient data before sending
+                        console.log("Validating patient data...");
+                        console.log("Patient data:", {
+                            fullName: patientData.fullName,
+                            username: patientData.username,
+                            email: patientData.email,
+                            agreeToTerms: patientData.agreeToTerms,
+                            agreeToPrivacy: patientData.agreeToPrivacy,
+                            password: patientData.password ? "***hidden***" : "missing"
+                        });
+
+                        // Check for required fields
+                        if (!patientData.fullName || !patientData.username || !patientData.password) {
+                            throw new Error("Missing required fields: fullName, username, or password");
+                        }
+
+                        // Ensure booleans are properly set
+                        const agreesToTerms = Boolean(patientData.agreeToTerms);
+                        const agreesToPrivacy = Boolean(patientData.agreeToPrivacy);
+                        
+                        console.log("Terms agreement:", agreesToTerms, "Privacy agreement:", agreesToPrivacy);
+
+                        // Handle ApiResponse variant for patient registration
+                        const result = await backend.register_patient_account({
                             full_name: patientData.fullName,
                             date_of_birth: patientData.dateOfBirth,
                             gender: patientData.gender,
@@ -184,11 +211,25 @@ function RegisterPage() {
                             allergies: patientData.allergies,
                             chronic_conditions: patientData.chronicConditions,
                             current_medications: patientData.currentMedications,
-                            agreed_to_terms: patientData.agreeToTerms,
-                            agreed_to_privacy: patientData.agreeToPrivacy,
+                            agreed_to_terms: agreesToTerms,
+                            agreed_to_privacy: agreesToPrivacy,
                         });
+
+                        // Handle the ApiResponse variant
+                        if (result.Ok) {
+                            console.log("Patient registration successful:", result.Ok);
+                            alert(`Registration successful! ${result.Ok}`);
+                        } else if (result.Err) {
+                            console.error("Patient registration failed:", result.Err);
+                            alert(`Registration failed: ${result.Err}`);
+                            setError(result.Err);
+                            return; // Don't proceed if registration failed
+                        }
+                        
                     } else if (userType === "hospital") {
-                        await backend.register_hospital({
+                        // Handle text response for hospital registration
+                        const result = await backend.register_hospital({
+                            id: "", // You might want to generate this
                             hospital_name: hospitalData.hospitalName,
                             hospital_type: hospitalData.hospitalType,
                             license_number: hospitalData.licenseNumber,
@@ -211,17 +252,47 @@ function RegisterPage() {
                             agree_to_privacy: hospitalData.agreeToPrivacy,
                             verify_information: hospitalData.verifyInformation,
                         });
+
+                        console.log("Hospital registration result:", result);
+                        alert(`Registration successful! ${result}`);
                     }
-                    alert("Registration successful!");
+
+                    setLoading(false);
+                    // Optionally redirect to login page or dashboard
+                    // navigate('/login'); // if using react-router
+
+                } catch (registrationError) {
+                    console.error("Registration API call failed:", registrationError);
+                    console.error("Error details:", {
+                        message: registrationError.message,
+                        stack: registrationError.stack,
+                        name: registrationError.name
+                    });
+                    
+                    // Log the data being sent for debugging
+                    if (userType === "patient") {
+                        console.error("Patient data being sent:", {
+                            full_name: patientData.fullName,
+                            username: patientData.username,
+                            email: patientData.email,
+                            agreed_to_terms: patientData.agreeToTerms,
+                            agreed_to_privacy: patientData.agreeToPrivacy
+                        });
+                    }
+                    
+                    alert(`Registration failed: ${registrationError.message || registrationError}`);
+                    setError(`Registration failed: ${registrationError.message || registrationError}`);
+                    setLoading(false);
                 }
-            })
-        } catch (err) {
-            console.error("Blockchain registration failed:", err);
-            alert("Registration failed. Please try again.");
-
-        }
-    };
-
+            }
+        })
+    } catch (authError) {
+        console.error("Authentication failed:", authError);
+        alert("Authentication failed. Please try again.");
+        setError("Authentication failed. Please try again.");
+        setLoading(false);
+    }
+};
 
 
     const renderPatientForm = () => (

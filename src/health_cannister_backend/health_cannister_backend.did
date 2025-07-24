@@ -1,3 +1,117 @@
+// backend.did
+type Hospital = record {
+  id: text;
+  hospital_name: text;
+  hospital_type: text;
+  license_number: text;
+  address: text;
+  city: text;
+  state: text;
+  zip_code: text;
+  phone: text;
+  email: text;
+  website: text;
+  admin_name: text;
+  admin_title: text;
+  admin_email: text;
+  admin_phone: text;
+  username: text;
+  password: text;
+  medical_license: text;
+  hospital_registration: text;
+  agree_to_terms: bool;
+  agree_to_privacy: bool;
+  verify_information: bool;
+};
+
+type PatientAccount = record {
+  full_name: text;
+  date_of_birth: text;
+  gender: text;
+  blood_type: text;
+  phone: text;
+  email: text;
+  address: text;
+  username: text;
+  password: text;
+  emergency_contact_name: text;
+  emergency_contact_phone: text;
+  emergency_contact_relation: text;
+  insurance_provider: text;
+  insurance_policy_number: text;
+  insurance_group_number: text;
+  allergies: text;
+  chronic_conditions: text;
+  current_medications: text;
+  agreed_to_terms: bool;
+  agreed_to_privacy: bool;
+};
+
+type Patient = record {
+  id: text;
+  name: text;
+  date_of_birth: text;
+  gender: text;
+  blood_type: text;
+  phone: text;
+  email: text;
+  address: text;
+  emergency_contact_name: text;
+  emergency_contact_phone: text;
+  emergency_contact_relation: text;
+  insurance_provider: text;
+  insurance_policy_number: text;
+  allergies: text;
+  chronic_conditions: text;
+  current_medications: text;
+  age: nat8;
+  last_visit: text;
+};
+
+type VitalSigns = record {
+  blood_pressure: text;
+  heart_rate: text;
+  temperature: text;
+  respiratory_rate: text;
+  oxygen_saturation: text;
+  weight: text;
+  height: text;
+};
+
+type MedicalRecord = record {
+  id: text;
+  patient_id: text;
+  date: text;
+  hospital: text;
+  doctor: text;
+  department: text;
+  visit_type: text;
+  chief_complaint: text;
+  diagnosis: text;
+  treatment: text;
+  medications: vec text;
+  vital_signs: VitalSigns;
+  lab_results: vec text;
+  notes: text;
+  follow_up: text;
+  blockchain_hash: text;
+  verified: bool;
+};
+
 service : {
-    "greet": (text) -> (text) query;
+  register_hospital: (Hospital) -> (text);
+  get_hospitals: () -> (vec Hospital);
+  
+  register_patient_account: (PatientAccount) -> (text);
+  get_patient_accounts: () -> (vec PatientAccount);
+
+  add_patient: (Patient) -> (text);
+  get_patient: (text) -> (opt Patient);
+  get_all_patients: () -> (vec Patient);
+
+  add_medical_record: (MedicalRecord) -> (text);
+  get_medical_records_by_patient: (text) -> (vec MedicalRecord);
+  verify_medical_record: (text) -> (bool);
+
+  greet: (text) -> (text); // Optional default test function
 }

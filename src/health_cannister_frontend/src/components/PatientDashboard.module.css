@@ -1,0 +1,601 @@
+.container {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 20px;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.headerContent h1 {
+  color: #2d3748;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.patientWelcome {
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.logoutButton {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tabNavigation {
+  display: flex;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 15px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  color: #4a5568;
+  border-radius: 12px 12px 0 0;
+  transition: all 0.2s;
+}
+
+.tabButton:hover {
+  background: #f7fafc;
+}
+
+.tabButton.active {
+  background: white;
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+}
+
+.mainContent {
+  background: white;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 600px;
+}
+
+/* Records Tab Styles */
+.recordsContent {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  height: 100%;
+}
+
+.recordsList {
+  padding: 20px;
+  border-right: 1px solid #e2e8f0;
+  background: #fafafa;
+}
+
+.recordsList h3 {
+  margin: 0 0 20px 0;
+  color: #2d3748;
+}
+
+.recordItem {
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.recordItem:hover {
+  border-color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recordItem.selected {
+  border-color: #667eea;
+  background: #edf2f7;
+}
+
+.recordDate {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+
+.recordHospital {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin-bottom: 3px;
+}
+
+.recordDiagnosis {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-bottom: 5px;
+}
+
+.recordType {
+  font-size: 0.8rem;
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.verificationBadge {
+  font-size: 0.75rem;
+  color: #38a169;
+  font-weight: 500;
+}
+
+.recordDetails {
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.recordHeader {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.recordHeader h2 {
+  margin: 0 0 15px 0;
+  color: #2d3748;
+}
+
+.blockchainInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.blockchainLabel {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.blockchainHash {
+  font-family: monospace;
+  background: #f7fafc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #2d3748;
+}
+
+.verifiedBadge {
+  background: #c6f6d5;
+  color: #22543d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.recordContent {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.recordSection h3 {
+  margin: 0 0 15px 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 5px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.infoLabel {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.vitalsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.vitalItem {
+  background: #f7fafc;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.vitalLabel {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.vitalValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.labResults {
+  display: grid;
+  gap: 12px;
+}
+
+.labItem {
+  background: #f7fafc;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+
+.labTest {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.labValue {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.labRange {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.labStatus {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.labStatus.normal {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.labStatus.elevated {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.labStatus.goodcontrol {
+  background: #bee3f8;
+  color: #2b6cb0;
+}
+
+.medicationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.medicationList li {
+  background: #f7fafc;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border-left: 4px solid #667eea;
+  font-weight: 500;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.emptyState h2 {
+  margin: 0 0 10px 0;
+  color: #2d3748;
+}
+
+.emptyState p {
+  color: #718096;
+  margin: 0;
+}
+
+/* Profile Tab Styles */
+.profileContent {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.profileSection {
+  background: #fafafa;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.profileSection h3 {
+  margin: 0 0 20px 0;
+  color: #2d3748;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 8px;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.profileItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.profileLabel {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.allergiesList {
+  display: grid;
+  gap: 12px;
+}
+
+.allergyItem {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  gap: 15px;
+  align-items: center;
+  border-left: 4px solid #e53e3e;
+}
+
+.allergyName {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.allergySeverity {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.allergySeverity.severe {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.allergySeverity.moderate {
+  background: #feebc8;
+  color: #c05621;
+}
+
+.allergySeverity.mild {
+  background: #f0fff4;
+  color: #38a169;
+}
+
+.allergyReaction {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.conditionsList {
+  display: grid;
+  gap: 12px;
+}
+
+.conditionItem {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+  border-left: 4px solid #667eea;
+}
+
+.conditionName {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.conditionDate {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.conditionStatus {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.conditionStatus.controlled {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.conditionStatus.managed {
+  background: #bee3f8;
+  color: #2b6cb0;
+}
+
+.medicationsList {
+  display: grid;
+  gap: 15px;
+}
+
+.medicationItem {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.medicationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.medicationName {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.medicationDosage {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.medicationDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.immunizationsList {
+  display: grid;
+  gap: 12px;
+}
+
+.immunizationItem {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+  border-left: 4px solid #38a169;
+}
+
+.vaccineName {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.vaccineDate {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.vaccineNext {
+  color: #38a169;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contactsList {
+  display: grid;
+  gap: 12px;
+}
+
+.contactItem {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+  border-left: 4px solid #667eea;
+}
+
+.contactName {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.contactRelation {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.contactPhone {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.insuranceInfo {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}

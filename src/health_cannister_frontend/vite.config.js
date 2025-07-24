@@ -9,6 +9,9 @@ export default defineConfig({
   build: {
     emptyOutDir: true,
   },
+  rollupOptions: {
+      external: ['@dfinity/auth-client'],
+    },
   optimizeDeps: {
     esbuildOptions: {
       define: {
